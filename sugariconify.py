@@ -191,7 +191,7 @@ class SugarIconify():
     def set_use_iso_strokes(self, i=False):
         self.use_iso_strokes = i
 
-    def iconify(self, file_path):
+    def iconify(self, file_path, output_file=None):
         # Isolate important parts of the input path
         self.svgfilepath = file_path
         self.svgdirpath, self.sep, self.svgfilename = \
@@ -210,6 +210,10 @@ class SugarIconify():
         except:
             self.svgfile.close()
             sys.exit('Error: Could not read ' + self.svgfilepath)
+
+        # Set output filename if specified
+        if output_file:
+            self.svgfilename = output_file
 
         # Determine the creator of the SVG (we only care about
         # Inkscape and Illustrator)
@@ -499,7 +503,8 @@ proper colors with the -s and -f flags.'
 
                                 if self.use_entities:
                                     strokes_replaced, fills_replaced = \
-                                        self.replaceEntities(icon_xml.childNodes[1])
+                                        self.replaceEntities(
+                                            icon_xml.childNodes[1])
 
                                     if not strokes_replaced and not fills_replaced:
                                         print 'Warning: no entity replacements were made in %s' % icon_name
@@ -565,7 +570,7 @@ proper colors with the -s and -f flags.'
 
         else:
             # Output a single converted icon
-            if not self.overwrite_input:
+            if not self.overwrite_input and not output_file:
                 outfilename = re.sub(r'(.*\.)([^.]+)', r'\1sugar.\2',
                                      self.svgfilename)
                 if self.verbose:
