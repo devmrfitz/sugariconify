@@ -122,7 +122,7 @@ class SugarIconify():
             elif o == '-i':
                 self.set_use_iso_strokes(True)
 
-        self.iconify(arg[0])
+        self.iconify(*arg)
 
     def rgb_to_hex(self, rgb_str):
         s = re.sub(r'.*rgb\(([^)]*).*', r'\1', rgb_str)
