@@ -489,8 +489,8 @@ proper colors with the -s and -f flags.')
                                re.search(self.pattern, icon_name):
 
                                 if self.verbose:
-                                    print('\nExporting ' + icon_name + \
-                                        '.self.svg...')
+                                    print('\nExporting ' + icon_name +
+                                          '.self.svg...')
                                 icon_xml = xml.dom.minidom.Document()
 
                                 # Construct the self.svg
@@ -507,11 +507,17 @@ proper colors with the -s and -f flags.')
                                             icon_xml.childNodes[1])
 
                                     if not strokes_replaced and not fills_replaced:
-                                        print('Warning: no entity replacements were made in %s' % icon_name)
+                                        print(
+                                            'Warning: no entity replacements were made in %s' %
+                                            icon_name)
                                     elif not strokes_replaced:
-                                        print('Warning: no stroke entity replacements were made in %s' % icon_name)
+                                        print(
+                                            'Warning: no stroke entity replacements were made in %s' %
+                                            icon_name)
                                     elif not fills_replaced:
-                                        print('Warning: no fill entity replacements were made in %s' % icon_name)
+                                        print(
+                                            'Warning: no fill entity replacements were made in %s' %
+                                            icon_name)
 
                                     if not strokes_replaced or not fills_replaced:
                                         n_warnings += 1
@@ -537,11 +543,13 @@ proper colors with the -s and -f flags.')
                                     if not self.use_default_colors:
                                         icon_svgtext = re.sub(
                                             r'ENTITY self.stroke_color "[^"]*"',
-                                            r'ENTITY self.stroke_color "' + self.stroke_color + '"',
+                                            r'ENTITY self.stroke_color "' +
+                                                self.stroke_color + '"',
                                             icon_svgtext)
                                         icon_svgtext = re.sub(
                                             r'ENTITY self.fill_color "[^"]*"',
-                                            r'ENTITY self.fill_color "' + self.fill_color + '"',
+                                            r'ENTITY self.fill_color "' +
+                                                self.fill_color + '"',
                                             icon_svgtext)
                                     f.write(icon_svgtext)
                                     f.close()
@@ -554,8 +562,8 @@ proper colors with the -s and -f flags.')
                     # Catch any errors we may have missed, so the rest
                     # of the icons can export normally
                     if(icon_name):
-                        print('Error: Could not export' + icon_name + \
-                            '.self.svg')
+                        print('Error: Could not export' + icon_name +
+                              '.self.svg')
 
             if self.verbose:
                 if n_icons_exported == 1:
