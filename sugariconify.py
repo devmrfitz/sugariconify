@@ -22,7 +22,6 @@ import xml.dom.minidom
 import getopt
 import re
 import os
-import string
 
 HELP = '''\nUsage: sugar-iconify.py [options] input.svg\n
 Options:\n
@@ -75,7 +74,6 @@ class SugarIconify():
             self.confirm_guess = False
 
     def usage(self):
-        # Define help output
         print(HELP)
 
     def _parse_command_line(self):
@@ -247,7 +245,7 @@ class SugarIconify():
 
             # Define the entities
             if self.fill_match and self.stroke_match:
-                self.entities  = '\t<!ENTITY ' + self.stroke_entity + ' "' + \
+                self.entities = '\t<!ENTITY ' + self.stroke_entity + ' "' + \
                                  self.stroke_color + '">\n'
                 self.entities += '\t<!ENTITY ' + self.fill_entity + ' "' + \
                                  self.fill_color + '">\n'
@@ -255,7 +253,7 @@ class SugarIconify():
                     self.entities += '\t<!ENTITY ' + self.iso_stroke_entity + \
                                      ' "' + self.stroke_color + '">\n'
             else:
-                self.entities  = '\t<!ENTITY ' + self.stroke_entity + ' "' + \
+                self.entities = '\t<!ENTITY ' + self.stroke_entity + ' "' + \
                                  self.default_stroke_color + '">\n'
                 self.entities += '\t<!ENTITY ' + self.fill_entity + ' "' + \
                                  self.default_fill_color + '">\n'
@@ -494,7 +492,7 @@ proper colors with the -s and -f flags.')
                                 icon_xml = xml.dom.minidom.Document()
 
                                 # Construct the self.svg
-                                icon_xml.appendChild(doctype)
+                                icon_xml.appendChild(self.doctype)
                                 icon_xml.appendChild(self.svg.cloneNode(0))
 
                                 icon_xml.childNodes[1].appendChild(icon)
@@ -544,12 +542,12 @@ proper colors with the -s and -f flags.')
                                         icon_svgtext = re.sub(
                                             r'ENTITY self.stroke_color "[^"]*"',
                                             r'ENTITY self.stroke_color "' +
-                                                self.stroke_color + '"',
+                                            self.stroke_color + '"',
                                             icon_svgtext)
                                         icon_svgtext = re.sub(
                                             r'ENTITY self.fill_color "[^"]*"',
                                             r'ENTITY self.fill_color "' +
-                                                self.fill_color + '"',
+                                            self.fill_color + '"',
                                             icon_svgtext)
                                     f.write(icon_svgtext)
                                     f.close()
@@ -838,7 +836,6 @@ proper colors with the -s and -f flags.')
     def fix_isolated_strokes(self, node):
         strokes_fixed = 0
         # Recurse on DOM
-        last_n = None
         for n in node.childNodes:
             sf = self.fix_isolated_strokes(n)
             strokes_fixed += sf
